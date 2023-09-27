@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://iconecolegioecurso.com.br/controledesala/icon/icone_icon.png">
+    <link rel="stylesheet" href="./main.css">
+    <title>Controle de Sala - Icone Colégio e Curso</title>
+</head>
+<body id="body">
+    <div class="confirm-env" id="confirm-env">
+        Enviado!
+    </div>
+
+    <div class="modal-config" id="modal-config">
+        <ul>
+            <li id="admin">Painel Adm</li>
+            <li id="exit">Sair</li>
+        </ul>
+    </div>
+
+    <nav>
+        <ul>
+            <li><div class="icon"></div></li>
+            <li>
+                <select id="select-turma">
+                    <option value="">--Selecione a Turma--</option>
+                </select>
+            </li>
+            <li><div class="options" id="options"></div></li>
+        </ul>
+    </nav>
+
+    <!-- Modal -->
+    <div class="black-background" id="black-background">
+        <center>
+            <div class="modal-opcoes" id="modal-opcoes">
+                <div class="photo" id="photo"></div>
+                <div class="name-profile" id="name-profile">Pedro Lucas dos Santos Casella</div>
+                <div class="select-ocorrencias" id="select-ocorrencias">
+                    <input type="checkbox" name="" id="material-check"> <span id="000">Falta de Material</span><br>
+                    <input type="checkbox" name="" id="indisciplina-check"> <span id="000">Indisciplina</span><br>
+                    <input type="checkbox" name="" id="atividade-check"> <span id="000">Sem Atividade de Casa</span><br>
+                    <input type="checkbox" name="" id="celular-check"> <span id="000">Uso do Celular</span>
+                    <center><div class="send-ocorrence" id="send-ocorrence">Enviar</div></center>
+                </div>
+            </div>
+        </center>
+        <center>
+            <select name="" class="function-select" id="function-select">
+                    
+            </select>
+        </center>
+    </div>
+    <!----------->
+
+    <section class="list" id="list">
+        <ul class="alunos-lista" id="alunos-lista">
+
+        </ul>
+    </section>
+
+    <div class="select-unidade" id="select-unidade">
+        <ul>
+            <li id="mananciais"><div class="unidade-icon"></div>  <span class="locate-name">Unidade I (Mananciais)</span></li>
+            <li id="tindiba"><div class="unidade-icon"></div>  <span class="locate-name">Unidade II (Tindiba)</span></li>
+            <li id="recreio"><div class="unidade-icon"></div>  <span class="locate-name">Unidade IV (Recreio)</span></li>
+        </ul>
+    </div>
+
+    <footer id="footer">
+        <div class="unidade-icon" id="mananciais"></div>  <span class="locate-name" id="selected-locate">Selecione uma Unidade Icone</span>
+    </footer>
+    <script src="./app.js" type="module"></script>
+</body>
+</html>

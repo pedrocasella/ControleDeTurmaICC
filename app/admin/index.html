@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="">
+    <link rel="icon" href="https://iconecolegioecurso.com.br/controledesala/icon/icone_icon.png">
+    <link rel="stylesheet" href="./main.css">
+    <title>Admin | Controle de Sala - Icone Colégio e Curso</title>
+</head>
+<body id="body">
+    <div class="solicitations-btn" id="solicitations-btn"></div>
+    <div class="black-background" id="black-background">
+        <center>
+            <div class="solicited-acess-modal" id="solicited-acess-modal">
+                <h4>Solicitações de Acesso:</h4>
+                <div class="exit-socited-acess-modal" id="exit-solicited-acess-modal"></div>
+                <div class="accept-confirm" id="accept-confirm">
+                    <div class="accept-name" id="accept-name"><strong>Nome: </strong></div>
+                    <div class="accept-email" id="accept-email"><strong>Email: </strong></div>
+                    <input type="text" name="" id="accept-funcao" placeholder="Função/Disciplina"><br>
+                    <select name="" id="accept-permissao">
+                        <option value="none">Acesso ao App</option>
+                        <option value="admin">Administrador</option>
+                    </select><br>
+                    <div class="confirm-accept-btn" id="confirm-accept-btn">Confirmar</div>
+                    <div class="exit-accept-confirm" id="exit-accept-confirm"></div>
+                </div>
+                <ul>
+                    <ul id="solicited-acess-ul">
+  
+                    </ul>
+                </ul>
+            </div>
+
+            <div class="edit-user" id="edit-user">
+                <span>Nome:</span><br>
+                <input type="text" name="" id="edit-name" class="edit-name"><br>
+                <span>Função/Disciplina:</span>
+                <input type="text" name="" id="add-funcao" class="add-funcao" placeholder="Adicionar Função/Disciplina"><span class="add-funcao-btn" id="add-funcao-btn">+</span><br>
+                <ul>
+                    <li><div class="funcao-div">Artes <div class="remove-funcao">-</div></div></li>
+                    <li><div class="funcao-div">Filosofia <div class="remove-funcao">-</div></li>
+                </ul>
+                <div class="save-changes">Salvar Alterações</div>
+            </div>
+        </center>
+    </div>
+
+    <nav>
+        <div class="logo"></div>
+    </nav>
+    <section>
+        <div class="add-acess" id="add-acess">
+            <center><h4>Adicionar Acesso:</h4></center>
+                <span>Nome:</span><br>
+                <input type="text" name="" id="add-acess-nome" placeholder="Nome Completo"><br>
+                <span>E-mail:</span><br>
+                <input type="text" name="" id="add-acess-email" placeholder="example@icone.g12.br"><br>
+                <span>Disciplina/Função:</span><br>
+                <input type="text" name="" id="add-acess-funcao" placeholder="Disciplina ou Função"><br>
+                <select name="" id="select-permissao">
+                    <option value="none">Acesso ao App</option>
+                    <option value="admin">Administrador</option>
+                </select><br>
+                <span class="warning" id="warning">
+                    *Atenção! O usuário terá acesso <br> á todo o painel administrativo do<br> sistema.
+                </span>
+                <div class="add-acess-btn" id="add-acess-btn">Adicionar</div>
+        </div>
+        <h4>Acessos ao Sistema:</h4>
+        <input type="text" name="" id="search" placeholder="Nome/Email" autocomplete="none">
+        <div class="admin-acess" id="admin-acess">
+            <table id="table-users">
+                <thead>
+                    <tr>
+                        <th class="th-name">Nome</th>
+                        <th class="th-email">Email</th>
+                        <th class="th-disciplina">Disciplina/Função</th>
+                        <th class="th-auth">Autorização</th>
+                        <th class="th-btn"></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="test" id="test">
+
+        </div>
+    </section>
+    <script src="./app.js" type="module"></script>
+</body>
+</html>
