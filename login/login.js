@@ -1,6 +1,6 @@
 import { getDatabase, ref, set, push, child, get, remove } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, getRedirectResult } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAP8hj7lSAwmQmxgfJRzTrdtYYJtckXbpQ",
@@ -30,7 +30,7 @@ document.getElementById('voucher-btn').addEventListener('click', ()=>{
     const voucher = document.getElementById('input-voucher').value.trim();
 
     // Verificar se o voucher existe em authorized_users
-    const authorizedUsersRef = ref(database, 'acess_app_classroom_controller/authorized_users');
+    const authorizedUsersRef = ref(database, 'icone_id/equipe');
 
     get(authorizedUsersRef)
         .then((snapshot) => {
@@ -68,7 +68,7 @@ document.getElementById('login-btn').addEventListener('click', () => {
             const emailToCheck = user.email;
 
             // Verificar se o email já existe em authorized_users
-            const authorizedUsersRef = ref(database, 'acess_app_classroom_controller/authorized_users');
+            const authorizedUsersRef = ref(database, 'icone_id/equipe');
 
             get(authorizedUsersRef)
                 .then((snapshot) => {
@@ -89,11 +89,12 @@ document.getElementById('login-btn').addEventListener('click', () => {
 
                     if (!userFound) {
                         // Caso o email não exista, adicionamos o usuário em solicited_acess
-                        const newUserRef = ref(database, 'acess_app_classroom_controller/solicited_acess/' + user.displayName);
+                        const newUserRef = ref(database, 'icone_id/solicited_acess/' + user.displayName);
                         const newUser = {
                             nome: user.displayName,
                             email: user.email,
                             funcao: [''],
+                            appsAutorizados: ['controledeturma.app'],
                             permissao: ''
                         };
                         set(newUserRef, newUser)

@@ -172,7 +172,7 @@ nav .options{
 }
 
 .black-background .function-select{
-    transform: translateY(-430px);
+    transform: translateY(-450px);
     width: 150px;
     padding: .3rem;
     border-radius: 30px;
@@ -181,10 +181,10 @@ nav .options{
 
 .modal-opcoes{
     width: 250px;
-    height: 420px;
+    height: 430px;
     background-color: #fff;
     border-radius: 30px;
-    transform: translateY(20%);
+    transform: translateY(17%);
     padding: 2rem;
     display: none;
     -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.17); 
@@ -213,8 +213,26 @@ nav .options{
     user-select: none;
 }
 
+.modal-opcoes .selects{
+    height: 120px;
+    overflow-y: scroll;
+}
+
+.modal-opcoes textarea{
+    border-radius: 12px;
+    width: 200px;
+    height: 100px;
+    padding: .5rem;
+    margin-top: .5rem;
+}
+
 .modal-opcoes .select-ocorrencias input{
     margin: .5rem;   
+}
+
+.modal-opcoes .inspetor-check{
+    font-size: 9pt;
+    color: rgb(250, 23, 23);
 }
 
 .modal-opcoes .send-ocorrence{
@@ -226,6 +244,7 @@ nav .options{
     user-select: none;
     background-color: #f16136;
     margin-top: 1rem;
+    margin-bottom: .5rem;
 }
 
 .modal-opcoes .send-ocorrence:hover{
@@ -346,3 +365,127 @@ footer .locate-name{
     display: none;
     z-index: 5;
 }
+
+/* Area do Inspetor */
+.inspetor-float{
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    background-color: #f16136;
+    position: fixed;
+    background-image: url(./../app/img/inspect.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    bottom: 0;
+    right: 0;
+    -webkit-box-shadow: 0px 5px 20px 5px rgba(0,0,0,0.16); 
+    box-shadow: 0px 5px 20px 5px rgba(0,0,0,0.16);
+    margin: 2rem 2rem 6rem 2rem;
+    z-index: 8;
+    user-select: none;
+    cursor: pointer;
+    display: none;
+}
+
+.inspetor-float .counter{
+    color: #fff;
+    font-weight: bolder;
+    padding: .4rem .7rem;
+    position: absolute;
+    background-color: rgb(255, 21, 21);
+    border-radius: 100%;
+    text-align: center;
+}
+
+.inspetor-float:hover{
+    transition: linear .3s;
+    background-color: #f7744c;
+}
+
+.inspetor-area{
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: 10;
+}
+
+.inspetor-area h3{
+    position: relative;
+    display: block;
+    transform: translateX(95%);
+    margin: 1rem;
+    user-select: none;
+    cursor: pointer;
+}
+
+.ocorrence{
+    padding: 1rem;
+    border-bottom: solid .5px #393939;
+    overflow-y: scroll;
+}
+
+.ocorrence .message-icon{
+    width: 30px;
+    height: 30px;
+    background-image: url(./../app/img/message.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: .5rem;
+    cursor: pointer;
+}
+
+.ocorrence:hover{
+    transition: linear .3s;
+    background-color: #fbdddd;
+}
+
+.ocorrence ul{
+    display: inline-flex;
+    list-style: none;
+    user-select: none;
+}
+
+.ocorrence ul li{
+    margin-right: 1rem;
+}
+
+.ocorrence .nome-aluno{
+    width: 150px;
+}
+
+.ocorrence .turma{
+    font-size: 10pt;
+}
+.ocorrence .time{
+    font-weight: bolder;
+}
+
+.ocorrence .ocorrencia{
+    width: 100px;
+}
+
+.ocorrence .funcao{
+    font-size: 10pt;
+}
+
+.ocorrence .professor{
+    width: 150px;
+    color: #f16136;
+}
+
+.ocorrence .alert-icon{
+    width: 30px;
+    height: 30px;
+    background-image: url(./../app/img/alertorange.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: .5rem;
+    cursor: pointer;
+}
+
+/*----------------*/

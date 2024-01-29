@@ -163,3 +163,165 @@ section{
 .voucher-acess .return-voucher:active{
     cursor: default;
 }
+
+@media screen and (max-width: 768px){
+    section{
+        transform: translateY(200px);
+    }
+    
+    .logo{
+        width: 150px;
+        height: 150px;
+        background-image: url(./../app/img/iconecontrolelogo.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    
+    .login-btn{
+        width: fit-content;
+        padding: .8rem;
+        background-color:#FF5619;
+        user-select: none;
+        border-radius: 12px;
+        color: #fff;
+        font-weight: bolder;
+        -webkit-box-shadow: 0px 5px 20px 5px rgba(0,0,0,0.16); 
+        box-shadow: 0px 5px 20px 5px rgba(0,0,0,0.16);
+    }
+    
+    .login-voucher{
+        font-size: 9pt;
+        text-decoration: underline;
+        color: #cf00cf;
+        cursor: pointer;
+    }
+    
+    .login-btn:hover{
+        transition: linear .3s;
+        background-color:#ff5315;
+        cursor: pointer;
+    }
+    
+    /* Avisos */
+    
+    @keyframes opacity {
+        0%{
+            opacity: 0;
+        }
+    
+        100%{
+            opacity: 1;
+        }
+    }
+    
+    .deny-acess{
+        position: absolute;
+        background-color: #ff1919;
+        width: 200px;
+        text-align: center;
+        padding: 1rem;
+        bottom: 0;
+        margin: 2rem;
+        font-weight: bolder;
+        color: #fff;
+        border-radius: 12px;
+        -webkit-box-shadow: 0px 5px 20px 5px rgba(0,0,0,0.16); 
+        box-shadow: 0px 5px 20px 5px rgba(0,0,0,0.16);
+        user-select: none;
+        background-image: url(./../app/img/alert.png);
+        background-position: 25px;
+        background-repeat: no-repeat;
+        background-size: 10%;
+        animation: opacity .3s ease-in;
+        display: none;
+    }
+    
+    .allow-acess{
+        position: absolute;
+        background-color: #ffae19;
+        width: 200px;
+        text-align: center;
+        padding: 1rem;
+        bottom: 0;
+        margin: 2rem;
+        font-weight: bolder;
+        color: #fff;
+        border-radius: 12px;
+        -webkit-box-shadow: 0px 5px 20px 5px rgba(0,0,0,0.16); 
+        box-shadow: 0px 5px 20px 5px rgba(0,0,0,0.16);
+        user-select: none;
+        background-image: url(./../app/img/allow.png);
+        background-position: 20px;
+        background-repeat: no-repeat;
+        background-size: 10%;
+        animation: opacity .3s ease-in;
+        display: none;
+    }
+    
+    .voucher-acess{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        top: 0;
+        z-index: 1;
+        display: none;
+    }
+    
+    .voucher-acess .form-voucher{
+        transform: translateY(50%);
+    }
+    
+    .voucher-acess .logo-voucher{
+        width: 150px;
+        height: 150px;
+        background-image: url(./../app/img/voucher.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+    
+    .voucher-acess input{
+        padding: 1rem;
+        width: 200px;
+        border-radius: 30px;
+        border: solid #000 1px;
+    }
+    
+    .voucher-acess .voucher-btn{
+        width: fit-content;
+        padding: .8rem;
+        background-color: #ff5315;
+        color: #fff;
+        font-weight: bolder;
+        border-radius: 30px;
+        margin-top: 1rem;
+        user-select: none;
+    }
+    
+    .voucher-acess .voucher-btn:hover{
+        transition: linear .3s;
+        background-color: #fd622a;
+        cursor: pointer;
+    }
+    
+    .voucher-acess .return-voucher{
+        width: 40px;
+        height: 40px;
+        background-color: #000;
+        border-radius: 100%;
+        margin-top: .5rem;
+        color: #fff;
+        font-weight: bolder;
+        background-image: url(./../app/img/return.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 50%;
+        cursor: pointer;
+    }
+    
+    .voucher-acess .return-voucher:active{
+        cursor: default;
+    }
+}

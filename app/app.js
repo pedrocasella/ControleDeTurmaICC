@@ -1,4 +1,4 @@
-import { getDatabase, ref, set, push, child, get, remove } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+import { getDatabase, ref, set, push, child, get, remove, onValue} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
 
@@ -24,7 +24,7 @@ const storedEmail = localStorage.getItem('user_classroom_app_email');
 
 if (storedEmail) {
     // Verificar se o email existe no banco de dados
-    const authorizedUsersRef = ref(database, 'acess_app_classroom_controller/authorized_users');
+    const authorizedUsersRef = ref(database, 'icone_id/equipe');
     get(authorizedUsersRef)
         .then((snapshot) => {
             let emailExists = false;
@@ -57,7 +57,7 @@ if (storedEmail) {
 //Verificar Funções
 if (storedEmail) {
     // Consultar o banco de dados para obter as funções associadas ao email
-    const authorizedUsersRef = ref(database, 'acess_app_classroom_controller/authorized_users');
+    const authorizedUsersRef = ref(database, 'icone_id/equipe');
     get(authorizedUsersRef)
         .then((snapshot) => {
             let userFunctions = [];
@@ -154,7 +154,7 @@ get(child(dbRef, 'Sponte_API/')).then((snapshot) => {
     
                 for(let i = 0; i <= turmas.length; i++){
                     if(turmas[i].childNodes[9].innerHTML == 'Aberta'){
-                        select.innerHTML += '<option value="' + turmas[i].childNodes[3].innerHTML + '">' + turmas[i].childNodes[3].innerHTML.replace('- 2023', '') + '</option>'
+                        select.innerHTML += '<option value="' + turmas[i].childNodes[3].innerHTML + '">' + turmas[i].childNodes[3].innerHTML.replace('- 2024', '') + '</option>'
                     }
                     
                 }
@@ -162,7 +162,7 @@ get(child(dbRef, 'Sponte_API/')).then((snapshot) => {
             };
     
             // Abre uma requisição GET para a URL da API que retorna XML
-            xhr.open("GET", "https://api.sponteeducacional.net.br/WSAPIEdu.asmx/GetTurmas?nCodigoCliente=" + codClienteUnidadeI + "&sToken=" + tokenUnidadeI + "&sParametrosBusca=AnoLetivo=2023", true);
+            xhr.open("GET", "https://api.sponteeducacional.net.br/WSAPIEdu.asmx/GetTurmas?nCodigoCliente=" + codClienteUnidadeI + "&sToken=" + tokenUnidadeI + "&sParametrosBusca=AnoLetivo=2024", true);
     
             // Envia a requisição
             xhr.send();
@@ -273,7 +273,7 @@ if (xhr.readyState === 4 && xhr.status === 200) {
 
  for(let i = 0; i <= turmas.length; i++){
      if(turmas[i].childNodes[9].innerHTML == 'Aberta'){
-         select.innerHTML += '<option value="' + turmas[i].childNodes[3].innerHTML + '">' + turmas[i].childNodes[3].innerHTML.replace('- 2023', '') + '</option>'
+         select.innerHTML += '<option value="' + turmas[i].childNodes[3].innerHTML + '">' + turmas[i].childNodes[3].innerHTML.replace('- 2024', '') + '</option>'
      }
      
  }
@@ -281,7 +281,7 @@ if (xhr.readyState === 4 && xhr.status === 200) {
 };
 
 // Abre uma requisição GET para a URL da API que retorna XML
-xhr.open("GET", "https://api.sponteeducacional.net.br/WSAPIEdu.asmx/GetTurmas?nCodigoCliente=" + codClienteUnidadeII + "&sToken=" + tokenUnidadeII + "&sParametrosBusca=AnoLetivo=2023", true);
+xhr.open("GET", "https://api.sponteeducacional.net.br/WSAPIEdu.asmx/GetTurmas?nCodigoCliente=" + codClienteUnidadeII + "&sToken=" + tokenUnidadeII + "&sParametrosBusca=AnoLetivo=2024", true);
 
 // Envia a requisição
 xhr.send();
@@ -391,7 +391,7 @@ document.getElementById('select-turma').addEventListener('change', ()=>{
     
                 for(let i = 0; i <= turmas.length; i++){
                     if(turmas[i].childNodes[9].innerHTML == 'Aberta'){
-                        select.innerHTML += '<option value="' + turmas[i].childNodes[3].innerHTML + '">' + turmas[i].childNodes[3].innerHTML.replace('- 2023', '') + '</option>'
+                        select.innerHTML += '<option value="' + turmas[i].childNodes[3].innerHTML + '">' + turmas[i].childNodes[3].innerHTML.replace('- 2024', '') + '</option>'
                     }
                     
                 }
@@ -399,7 +399,7 @@ document.getElementById('select-turma').addEventListener('change', ()=>{
             };
     
             // Abre uma requisição GET para a URL da API que retorna XML
-            xhr.open("GET", "https://api.sponteeducacional.net.br/WSAPIEdu.asmx/GetTurmas?nCodigoCliente=" + codClienteUnidadeIV + "&sToken=" + tokenUnidadeIV + "&sParametrosBusca=AnoLetivo=2023", true);
+            xhr.open("GET", "https://api.sponteeducacional.net.br/WSAPIEdu.asmx/GetTurmas?nCodigoCliente=" + codClienteUnidadeIV + "&sToken=" + tokenUnidadeIV + "&sParametrosBusca=AnoLetivo=2024", true);
     
             // Envia a requisição
             xhr.send();
@@ -563,109 +563,475 @@ document.getElementById('black-background').addEventListener('click', (e)=>{
         const indisciplinaCheck = document.getElementById('indisciplina-check').checked = false
         const celularCheck = document.getElementById('celular-check').checked = false
         const atividadeCheck = document.getElementById('atividade-check').checked = false
+        const inspetorCheck = document.getElementById('inspetor-check').checked = false
+        const uniformeCheck = document.getElementById('uniforme-check').checked = false
+        const presencaChecked = document.getElementById('sala-check').checked = false
+        const comentarios = document.getElementById('comentario-input').value = ''
     }
 })
 
 //Enviando para a Planilha
-document.getElementById('send-ocorrence').addEventListener('click', ()=>{
-    const agora = new Date();
-    const dia = agora.getDate().toString().padStart(2, '0');
-    const mes = (agora.getMonth() + 1).toString().padStart(2, '0');
-    const ano = agora.getFullYear().toString();
-    const dataApp = `${dia}/${mes}/${ano}`;
 
 
-    const professor = localStorage.getItem('user_classroom_app_name')
-    const disciplina = document.getElementById('function-select').value
-    const nome = document.getElementById('name-profile').innerHTML
-    const turma = document.getElementById('select-turma').value
+    document.getElementById('send-ocorrence').addEventListener('click', async ()=>{
+        const inspetorCheck = document.getElementById('inspetor-check').checked
+        if(inspetorCheck == false){
+            const agora = new Date();
+            const dia = agora.getDate().toString().padStart(2, '0');
+            const mes = (agora.getMonth() + 1).toString().padStart(2, '0');
+            const ano = agora.getFullYear().toString();
+            const dataApp = `${dia}/${mes}/${ano}`;
+        
+        
+            const professor = localStorage.getItem('user_classroom_app_name')
+            const disciplina = document.getElementById('function-select').value
+            const nome = document.getElementById('name-profile').innerHTML
+            const turma = document.getElementById('select-turma').value
+        
+            //Checks
+            const materialCheck = document.getElementById('material-check').checked
+            const indisciplinaCheck = document.getElementById('indisciplina-check').checked
+            const celularCheck = document.getElementById('celular-check').checked
+            const atividadeCheck = document.getElementById('atividade-check').checked
+            const uniformeCheck = document.getElementById('uniforme-check').checked
+            const presencaChecked = document.getElementById('sala-check').checked
+            const comentarios = document.getElementById('comentario-input').value
+            let indisciplina;
+            let material
+            let celular
+            let atividade
+            let uniforme
+            let foraDeSala
 
-    //Checks
-    const materialCheck = document.getElementById('material-check').checked
-    const indisciplinaCheck = document.getElementById('indisciplina-check').checked
-    const celularCheck = document.getElementById('celular-check').checked
-    const atividadeCheck = document.getElementById('atividade-check').checked
-    let indisciplina;
-    let material
-    let celular
-    let atividade
-    if(indisciplinaCheck == true){
-        indisciplina = 'Sim'
-    }else{
-        indisciplina = 'Não'
-    }
+            if(indisciplinaCheck == true){
+                indisciplina = 'Sim'
+            }else{
+                indisciplina = 'Não'
+            }
+        
+            if(materialCheck == true){
+                material = 'Sim'
+            }else{
+                material = 'Não'
+            }
+        
+            if(celularCheck == true){
+                celular = 'Sim'
+            }else{
+                celular = 'Não'
+            }
+        
+            if(atividadeCheck == true){
+                atividade = 'Sim'
+            }else{
+                atividade = 'Não'
+            }
 
-    if(materialCheck == true){
-        material = 'Sim'
-    }else{
-        material = 'Não'
-    }
+            if(uniformeCheck == true){
+                uniforme = 'Sim'
+            }else{
+                uniforme = 'Não'
+            }
 
-    if(celularCheck == true){
-        celular = 'Sim'
-    }else{
-        celular = 'Não'
-    }
-
-    if(atividadeCheck == true){
-        atividade = 'Sim'
-    }else{
-        atividade = 'Não'
-    }
-
-    const classes = document.getElementById('select-turma').value
-    const location = document.getElementById('selected-locate').innerHTML
-
-    let link
-
-    if (location == 'Unidade I - Mananciais'){
-        link = 'https://api.sheetmonkey.io/form/7wCpvLqjCvYEiZpGXDqW57'
-    }
-
-    if(location == 'Unidade II - Tindiba'){
-        link = 'https://api.sheetmonkey.io/form/tYA1zMtXeZgXD7oFSuFjgz'
-    }
-
-    if(location == 'Unidade IV - Recreio' && classes == '1º AM - 2023' ||location == 'Unidade IV - Recreio' && classes == '1º CN / EPCAR - 2023' ||location == 'Unidade IV - Recreio' && classes == '2ª CN / EPCAR - 2023' ||location == 'Unidade IV - Recreio' && classes == '2º AM - 2023' ||location == 'Unidade IV - Recreio' && classes == '3º AM - 2023'){
-        link = 'https://api.sheetmonkey.io/form/h7bc25Ag6vuJi2XgiFXdM3'
-    }
+            if(presencaChecked == true){
+                foraDeSala = 'Sim'
+            }else{
+                foraDeSala = 'Não'
+            }
+        
+            const classes = document.getElementById('select-turma').value
+            const location = document.getElementById('selected-locate').innerHTML
+        
+            let link
+        
+            if (location == 'Unidade I - Mananciais'){
+                link = 'https://api.sheetmonkey.io/form/7wCpvLqjCvYEiZpGXDqW57'
+            }
+        
+            if(location == 'Unidade II - Tindiba'){
+                link = 'https://api.sheetmonkey.io/form/uK2yeZCRYLEHtB3MvXkHyw'
+            }
+        
+            if(location == 'Unidade IV - Recreio' && classes == '1º AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '1º CN / EPCAR - 2024' ||location == 'Unidade IV - Recreio' && classes == '2ª CN / EPCAR - 2024' ||location == 'Unidade IV - Recreio' && classes == '2º AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '3º AM - 2024'){
+                link = 'https://api.sheetmonkey.io/form/h7bc25Ag6vuJi2XgiFXdM3'
+            }
+            
+            if(location == 'Unidade IV - Recreio' && classes == '1º AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '6AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '7AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '8AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '9AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '9º CN / EPCAR - 2024'){
+                link = 'https://api.sheetmonkey.io/form/ePkVRdcQF4VUEJEHSnBQPo'
+            }
+        
+            // Adicione o campo oculto para indicar a folha desejada
+            const worksheetField = document.createElement('input');
+            worksheetField.type = 'hidden';
+            worksheetField.name = 'x-sheetmonkey-insert-worksheet';
+        
+            // Substitua 'Sheet2' pelo nome da folha desejada
+            worksheetField.value = turma;
+        
+            // Crie um formulário dinamicamente
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = link;
+        
+            // Anexe os dados ao formulário
+            form.appendChild(createInput('Professor', professor));
+            form.appendChild(createInput('Disciplina/ Função', disciplina));
+            form.appendChild(createInput('Aluno', nome));
+            form.appendChild(createInput('Turma', turma));
+            form.appendChild(createInput('Data', dataApp));
+            form.appendChild(createInput('Indisciplina', indisciplina));
+            form.appendChild(createInput('Uso de Celular', celular));
+            form.appendChild(createInput('S/ Uniforme', uniforme));
+            form.appendChild(createInput('S/Material', material));
+            form.appendChild(createInput('S/ Atividade de Casa', atividade));
+            form.appendChild(createInput('Fora de Sala', foraDeSala));
+            form.appendChild(createInput('Comentário', comentarios));
+        
+            // Adicione o campo oculto ao formulário
+            form.appendChild(worksheetField);
+        
+            // Realize a solicitação usando fetch
+            try {
+                const response = await fetch(link, {
+                    method: 'post',
+                    body: new FormData(form),
+                });
+        
+                if (response.ok) {
+                    // Execute o código desejado após a submissão do formulário
+                    document.getElementById('confirm-env').style.display = 'block';
+                    document.getElementById('modal-opcoes').style.display = 'none';
+                    document.getElementById('black-background').style.display = 'none';
+                    document.getElementById('material-check').checked = false;
+                    document.getElementById('indisciplina-check').checked = false;
+                    document.getElementById('celular-check').checked = false;
+                    document.getElementById('atividade-check').checked = false;
+                    document.getElementById('inspetor-check').checked = false
+                    document.getElementById('uniforme-check').checked = false
+                    document.getElementById('sala-check').checked = false
+                    document.getElementById('comentario-input').value = ''
+                    document.getElementById('footer').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('confirm-env').style.display = 'none';
+                    }, 1000 * 2);
+                } else {
+                    console.error('Erro na solicitação:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Erro na solicitação:', error);
+            }
     
-    if(location == 'Unidade IV - Recreio' && classes == '1º AM - 2023' ||location == 'Unidade IV - Recreio' && classes == '6AM - 2023' ||location == 'Unidade IV - Recreio' && classes == '7AM - 2023' ||location == 'Unidade IV - Recreio' && classes == '8AM - 2023' ||location == 'Unidade IV - Recreio' && classes == '9AM - 2023' ||location == 'Unidade IV - Recreio' && classes == '9º CN / EPCAR - 2023'){
-        link = 'https://api.sheetmonkey.io/form/ePkVRdcQF4VUEJEHSnBQPo'
-    }
+        
 
+        }else{
+            const agora = new Date();
+            const dia = agora.getDate().toString().padStart(2, '0');
+            const mes = (agora.getMonth() + 1).toString().padStart(2, '0');
+            const ano = agora.getFullYear().toString();
+            const hora = agora.getHours().toString()
+            const minuto = agora.getMinutes()
+            let minute = ''; if(minuto < 10){minute = '0' + agora.getMinutes()}else{minute = agora.getMinutes().toString()}
+            const dataApp = `${dia}/${mes}/${ano}`;
+            const dataOcorrence = `${hora}:${minute}`
+        
+        
+            const professor = localStorage.getItem('user_classroom_app_name')
+            const disciplina = document.getElementById('function-select').value
+            const nome = document.getElementById('name-profile').innerHTML
+            const turma = document.getElementById('select-turma').value
+        
+            const unidade = localStorage.getItem('user_classroom_app_local')
+            const inspetorRef = ref(database, 'controledeturma/inspecao/' + unidade)
+            const pushInspetor = push(inspetorRef)
+
+            const materialCheck = document.getElementById('material-check').checked  // Sem Material
+            const indisciplinaCheck = document.getElementById('indisciplina-check').checked // Aluno Indisciplinado
+            const celularCheck = document.getElementById('celular-check').checked // Uso de Celular
+            const atividadeCheck = document.getElementById('atividade-check').checked // Sem Atividade de Casa
+                            //Checks
+                            const uniformeCheck = document.getElementById('uniforme-check').checked
+                            const presencaChecked = document.getElementById('sala-check').checked
+                            const comentarios = document.getElementById('comentario-input').value
+                            let indisciplina;
+                            let material
+                            let celular
+                            let atividade
+                            let uniforme
+                            let foraDeSala
+                            const ocorrencia = [];
+
+                            if(indisciplinaCheck == true){
+                                indisciplina = 'Sim'
+                                ocorrencia.push('Aluno Indisciplinado');
+                            }else{
+                                indisciplina = 'Não'
+                            }
+                        
+                            if(materialCheck == true){
+                                material = 'Sim'
+                                ocorrencia.push('Sem Material');
+                            }else{
+                                material = 'Não'
+                            }
+                        
+                            if(celularCheck == true){
+                                celular = 'Sim'
+                                ocorrencia.push('Uso de Celular');
+                            }else{
+                                celular = 'Não'
+                            }
+                        
+                            if(atividadeCheck == true){
+                                atividade = 'Sim'
+                                ocorrencia.push('Sem Atividade de Casa');
+                            }else{
+                                atividade = 'Não'
+                            }
+            
+                            if(uniformeCheck == true){
+                                uniforme = 'Sim'
+                                ocorrencia.push('Sem Uniforme Escolar');
+                            }else{
+                                uniforme = 'Não'
+                            }
+            
+                            if(presencaChecked == true){
+                                foraDeSala = 'Sim'
+                                ocorrencia.push('O Aluno não está na sala');
+                            }else{
+                                foraDeSala = 'Não'
+                            }
+
+
+
+            set(pushInspetor, {
+                professor: professor,
+                funcao: disciplina,
+                aluno: nome,
+                ocorrencia: ocorrencia,
+                turma: turma,
+                hora: dataOcorrence,
+                indisciplina: indisciplina,
+                material: material,
+                celular: celular,
+                atividade: atividade,
+                uniforme: uniforme,
+                presenca: foraDeSala,
+                comentarios: comentarios,
+                uuid: pushInspetor.key
+            }).then(()=>{
+                    // Execute o código desejado após a submissão do formulário
+                    document.getElementById('confirm-env').style.display = 'block';
+                    document.getElementById('modal-opcoes').style.display = 'none';
+                    document.getElementById('black-background').style.display = 'none';
+                    document.getElementById('material-check').checked = false;
+                    document.getElementById('indisciplina-check').checked = false;
+                    document.getElementById('celular-check').checked = false;
+                    document.getElementById('atividade-check').checked = false;
+                    document.getElementById('uniforme-check').checked =false
+                    document.getElementById('sala-check').checked = false
+                    document.getElementById('inspetor-check').checked = false
+                    document.getElementById('comentario-input').value = ''
+                    document.getElementById('footer').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('confirm-env').style.display = 'none';
+                    }, 1000 * 2);
+            })
+        }
+    });
+
+        // Função para criar elementos input
+        function createInput(name, value) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            return input;
+        }
+
+//Inspetor
+const unidade = localStorage.getItem('user_classroom_app_local')
+const inspetorRef = ref(database, 'controledeturma/inspecao/' + unidade + '/')
+const userClassroomEmail = localStorage.getItem('user_classroom_app_email');
+
+const inspetoresRef = ref(database, 'controledeturma/inspetores/')
+
+get(inspetoresRef).then((snapshot)=>{
+    const data = snapshot.val()
+    const inspetores = JSON.stringify(Object.values(data))
     
-    fetch(link, {
-        method: 'post',
-        headers: {
-            'Accept' : 'application/json',
-            'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify({
-                    Professor: professor,
-                    Matéria: disciplina,
-                    Aluno: nome, 
-                    Turma: turma, 
-                    Data: dataApp,
-                    'S/Material': material,
-                    'Uso de Celular': celular,
-                    'S/ Atividade de Casa': atividade,
-                    Indisciplina: indisciplina
+    if (inspetores.indexOf(userClassroomEmail) != -1) {
+        async function respInspetor(professor, aluno, disciplina, turma, indisciplina, material, celular, atividade, uniforme, presenca, comentarios){
+            const agora = new Date();
+            const dia = agora.getDate().toString().padStart(2, '0');
+            const mes = (agora.getMonth() + 1).toString().padStart(2, '0');
+            const ano = agora.getFullYear().toString();
+            const dataApp = `${dia}/${mes}/${ano}`;
+    
+            const classes = document.getElementById('select-turma').value
+            const location = document.getElementById('selected-locate').innerHTML
+    
+            let link
+                
+            if (location == 'Unidade I - Mananciais'){
+                link = 'https://api.sheetmonkey.io/form/7wCpvLqjCvYEiZpGXDqW57'
+            }
+    
+            if(location == 'Unidade II - Tindiba'){
+                link = 'https://api.sheetmonkey.io/form/uK2yeZCRYLEHtB3MvXkHyw'
+            }
+    
+            if(location == 'Unidade IV - Recreio' && classes == '1º AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '1º CN / EPCAR - 2024' ||location == 'Unidade IV - Recreio' && classes == '2ª CN / EPCAR - 2024' ||location == 'Unidade IV - Recreio' && classes == '2º AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '3º AM - 2024'){
+                link = 'https://api.sheetmonkey.io/form/h7bc25Ag6vuJi2XgiFXdM3'
+            }
+            
+            if(location == 'Unidade IV - Recreio' && classes == '1º AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '6AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '7AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '8AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '9AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '9º CN / EPCAR - 2024'){
+                link = 'https://api.sheetmonkey.io/form/ePkVRdcQF4VUEJEHSnBQPo'
+            }
+    
+    
+            // Adicione o campo oculto para indicar a folha desejada
+            const worksheetField = document.createElement('input');
+            worksheetField.type = 'hidden';
+            worksheetField.name = 'x-sheetmonkey-insert-worksheet';
+    
+            const inspetor = localStorage.getItem('user_classroom_app_name')
+    
+            worksheetField.value = turma;
+    
+            // Crie um formulário dinamicamente
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = link;
+                    // Anexe os dados ao formulário
+                    form.appendChild(createInput('Professor', professor));
+                    form.appendChild(createInput('Disciplina/ Função', disciplina));
+                    form.appendChild(createInput('Aluno', aluno));
+                    form.appendChild(createInput('Turma', turma));
+                    form.appendChild(createInput('Data', dataApp));
+                    form.appendChild(createInput('Indisciplina', indisciplina));
+                    form.appendChild(createInput('Uso de Celular', celular));
+                    form.appendChild(createInput('S/ Uniforme', uniforme));
+                    form.appendChild(createInput('S/Material', material));
+                    form.appendChild(createInput('S/ Atividade de Casa', atividade));
+                    form.appendChild(createInput('Fora de Sala', presenca));
+                    form.appendChild(createInput('Comentário', comentarios));
+                    form.appendChild(createInput('Inspetor', inspetor));
+    
+            // Adicione o campo oculto ao formulário
+            form.appendChild(worksheetField);
+    
+            // Realize a solicitação usando fetch
+            try {
+                const response = await fetch(link, {
+                    method: 'post',
+                    body: new FormData(form),
+                });
+    
+                if (response.ok) {
+                    // Execute o código desejado após a submissão do formulário
+                    document.getElementById('confirm-env').style.display = 'block';
+                    document.getElementById('modal-opcoes').style.display = 'none';
+                    document.getElementById('black-background').style.display = 'none';
+                    document.getElementById('material-check').checked = false;
+                    document.getElementById('indisciplina-check').checked = false;
+                    document.getElementById('celular-check').checked = false;
+                    document.getElementById('atividade-check').checked = false;
+                    document.getElementById('inspetor-check').checked = false
+                    document.getElementById('footer').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('confirm-env').style.display = 'none';
+                    }, 1000 * 2);
+                } else {
+                    console.error('Erro na solicitação:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Erro na solicitação:', error);
+            }
+        }
+    
+        //Resposta do Inspetor
+        document.getElementById('inspetor-area').addEventListener('click', (e)=>{
+            const uuid = e.target.dataset.alertUuid
+    
+            if(uuid != undefined){
+                const unidade = localStorage.getItem('user_classroom_app_local')
+                const ocorrenceRef = ref(database, 'controledeturma/inspecao/' + unidade + '/' + uuid)
+                get(ocorrenceRef).then((snapshot)=>{
+                    const data = snapshot.val()
+    
+    
+                    const professor = data.professor
+                    const aluno = data.aluno
+                    const disciplina = data.funcao
+                    const turma = data.turma
+                    const indisciplina = data.indisciplina
+                    const material = data.material
+                    const celular = data.celular
+                    const atividade = data.atividade
+                    const uniforme = data.uniforme
+                    const presenca = data.presenca
+                    const comentarios = data.comentarios
+                    
+                    respInspetor(professor, aluno, disciplina, turma, indisciplina, material, celular, atividade, uniforme, presenca, comentarios).then(()=>{
+                        remove(ocorrenceRef)
+                        document.getElementById('ocorrence-' + uuid).remove()
+                    })
+                    
+    
                 })
-    }).then(()=>{
-        document.getElementById('confirm-env').style.display = 'block'
-        document.getElementById('modal-opcoes').style.display = 'none'
-        document.getElementById('black-background').style.display = 'none'
-        document.getElementById('material-check').checked = false
-        document.getElementById('indisciplina-check').checked = false
-        document.getElementById('celular-check').checked = false
-        document.getElementById('atividade-check').checked = false
-        document.getElementById('footer').style.display = 'block'
-        setTimeout(()=>{
-            document.getElementById('confirm-env').style.display = 'none'
-        }, 1000*2)
-    })
+    
+            }
+        })
+    
+            //Contador
+            onValue(inspetorRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    const totalAlunos = Object.keys(data).length;
+                    document.getElementById('inspect-counter').innerText = totalAlunos
+                } else {
+                    const totalAlunos = 0
+                    document.getElementById('inspect-counter').innerText = totalAlunos
+                }
+            });
+        
+            // Verifica se o navegador suporta notificações
+            if ("Notification" in window) {
+                // Solicita permissão para exibir notificações
+                Notification.requestPermission().then((permission) => {
+                    if (permission === "granted") {
+                        // Configura o listener para as atualizações nos dados
+                        const inspetorRef = ref(database, 'controledeturma/inspecao/' + unidade);
+        
+                        onValue(inspetorRef, (snapshot) => {
+                            const data = snapshot.val();
+                            if (data) {
+                                const totalAlunos = Object.keys(data).length;
+                                document.getElementById('inspect-counter').innerText = totalAlunos
+                                // Cria uma notificação
+                                const notification = new Notification("Atualização de Alunos", {
+                                    body: `Número total de alunos atualizado: ${totalAlunos}`,
+                                });
+                            } else {
+                                console.log('Não há dados de inspeção de alunos.');
+                            }
+                        });
+                    }
+                });
+            } else {
+                console.log("Este navegador não suporta notificações web.");
+            }
+    
+        document.getElementById('inspetor-float').style.display = 'block'
+    } else {
+        console.log('O email do inspetor não está definido no localStorage.');
+    }
 })
+
+
+
+
 
 //Opções do menu
 document.getElementById('options').addEventListener('click', ()=>{
@@ -689,5 +1055,18 @@ document.getElementById('exit').addEventListener('click', ()=>{
     window.location.reload()
 })
 
+document.getElementById('close-inspetor-area').addEventListener('click', ()=>{
+    document.getElementById('inspetor-area').style.display = 'none'
+})
 
-
+document.getElementById('inspetor-float').addEventListener('click', ()=>{
+    document.getElementById('inspetor-area').style.display = 'block'
+    document.getElementById('ocorrencias-area').innerHTML = ''
+    get(inspetorRef).then((snapshot)=>{
+        const data = snapshot.val()
+        Object.values(data).forEach((data)=>{
+            document.getElementById('ocorrencias-area').innerHTML += '<div class="ocorrence" id="ocorrence-' + data.uuid + '"> <ul><li><div data-alert-uuid="' + data.uuid + '" class="alert-icon"></div></li> <li> <p class="nome-aluno"><strong>' + data.aluno + '</strong></p> <p class="turma">' + data.turma + '</p> </li> <li class="ocorrencia">' + data.ocorrencia[0] + '<p class"time">' + data.hora + '</p></li> <li> <p class="professor"><strong>' + data.professor + '</strong></p> <p class="funcao">' + data.funcao + '</p> </li><li><div class="message-icon"></div></li> </ul> </div>'
+        })
+        
+    })
+})

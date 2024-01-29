@@ -8,6 +8,12 @@
     <title>Controle de Sala - Icone Colégio e Curso</title>
 </head>
 <body id="body">
+    <div class="inspetor-float" id="inspetor-float"><div class="counter" id="inspect-counter"></div></div>
+    <div class="inspetor-area" id="inspetor-area">
+        <h3 id="close-inspetor-area">X</h3>
+        <div class="ocorrencias-area" id="ocorrencias-area"></div>
+    </div>
+
     <div class="confirm-env" id="confirm-env">
         Enviado!
     </div>
@@ -38,11 +44,19 @@
                 <div class="photo" id="photo"></div>
                 <div class="name-profile" id="name-profile">Pedro Lucas dos Santos Casella</div>
                 <div class="select-ocorrencias" id="select-ocorrencias">
-                    <input type="checkbox" name="" id="material-check"> <span id="000">Falta de Material</span><br>
-                    <input type="checkbox" name="" id="indisciplina-check"> <span id="000">Indisciplina</span><br>
-                    <input type="checkbox" name="" id="atividade-check"> <span id="000">Sem Atividade de Casa</span><br>
-                    <input type="checkbox" name="" id="celular-check"> <span id="000">Uso do Celular</span>
+                    <div class="selects">
+                        <input type="checkbox" name="" id="material-check"> <span id="000">Sem Material</span><br>
+                        <input type="checkbox" name="" id="indisciplina-check"> <span id="000">Indisciplina</span><br>
+                        <input type="checkbox" name="" id="atividade-check"> <span id="000">Sem Atividade de Casa</span><br>
+                        <input type="checkbox" name="" id="celular-check"> <span id="000">Uso do Celular</span><br>
+                        <input type="checkbox" name="" id="uniforme-check"> <span id="000">Sem Uniforme</span><br>
+                        <input type="checkbox" name="" id="sala-check"> <span id="000">Fora de Sala</span><br>
+                        <div class="inspetor-selects">
+                            <textarea name="" id="comentario-input" placeholder="Comentários"></textarea>
+                        </div>
+                    </div>
                     <center><div class="send-ocorrence" id="send-ocorrence">Enviar</div></center>
+                    <input type="checkbox" name="" id="inspetor-check"> <span id="000" class="inspetor-check"><strong>Preciso da Intervenção do Inspetor</strong></span>
                 </div>
             </div>
         </center>
