@@ -89,15 +89,17 @@ document.getElementById('login-btn').addEventListener('click', () => {
 
                     if (!userFound) {
                         // Caso o email não exista, adicionamos o usuário em solicited_acess
-                        const newUserRef = ref(database, 'icone_id/solicited_acess/' + user.displayName);
-                        const newUser = {
+                        const newUserRef = ref(database, 'icone_id/solicited_acess/');
+
+                        const pushNewUser = push(newUserRef)
+                        set(pushNewUser, {
                             nome: user.displayName,
                             email: user.email,
                             funcao: [''],
                             appsAutorizados: ['controledeturma.app'],
-                            permissao: ''
-                        };
-                        set(newUserRef, newUser)
+                            permissao: '',
+                            uuid: pushNewUser.key
+                        })
                             .then(() => {
                                 document.getElementById('deny-acess').style.display = 'block'
 
