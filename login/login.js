@@ -39,7 +39,7 @@ document.getElementById('voucher-btn').addEventListener('click', ()=>{
 
             snapshot.forEach((childSnapshot) => {
                 const user = childSnapshot.val();
-                if (user.voucher === voucher) {
+                if (user.voucher === voucher && user.appsAutorizados.includes('controledeturma.app')) {
                     userFound = true;
                     userData = user;
                 }
@@ -49,9 +49,18 @@ document.getElementById('voucher-btn').addEventListener('click', ()=>{
                 localStorage.setItem('user_classroom_app_name', userData.nome);
                 localStorage.setItem('user_classroom_app_function', userData.funcao);
                 localStorage.setItem('user_classroom_app_email', userData.email);
-                window.location.assign('./../app/');
+                document.getElementById('allow-acess').style.display = 'block'
+
+                setTimeout(()=>{
+                    document.getElementById('allow-acess').style.display = 'none'
+                    window.location.assign('./../app/')
+                }, 1000*2)
             } else {
-                alert('Voucher não encontrado')
+                document.getElementById('deny-acess').style.display = 'block'
+
+                setTimeout(()=>{
+                    document.getElementById('deny-acess').style.display = 'none'
+                }, 1000*4)
             }
         })
         .catch(error => {
@@ -77,13 +86,13 @@ document.getElementById('login-btn').addEventListener('click', () => {
 
                     snapshot.forEach((childSnapshot) => {
                         const userData = childSnapshot.val();
-                        if (userData.email === emailToCheck) {
+                        if (userData.email === emailToCheck && userData.appsAutorizados.includes('controledeturma.app')) {                         
                             userFound = true;
                             userFunction = userData.funcao[0]; // Supondo que a função seja um array
                             localStorage.setItem('user_classroom_app_name', user.displayName);
                             localStorage.setItem('user_classroom_app_function', userFunction);
                             localStorage.setItem('user_classroom_app_email', user.email);
-                            window.location.assign('./../app/')
+                            //window.location.assign('./../app/')
                         }
                     });
 

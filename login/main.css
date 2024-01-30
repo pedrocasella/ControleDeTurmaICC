@@ -96,6 +96,7 @@ section{
     background-size: 10%;
     animation: opacity .3s ease-in;
     display: none;
+    z-index: 5;
 }
 
 .voucher-acess{
@@ -235,6 +236,7 @@ section{
         background-size: 10%;
         animation: opacity .3s ease-in;
         display: none;
+        z-index: 5;
     }
     
     .allow-acess{

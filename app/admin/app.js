@@ -32,7 +32,7 @@ if (storedEmail) {
 
             snapshot.forEach((childSnapshot) => {
                 const userData = childSnapshot.val();
-                if (userData.email === storedEmail) {
+                if (userData.email === storedEmail && userData.appsAutorizados.includes('controledeturma.app')) {
                     userPermission = userData.permissao;
                 }
             });
