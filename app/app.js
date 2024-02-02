@@ -953,7 +953,16 @@ get(inspetoresRef).then((snapshot)=>{
         //Resposta do Inspetor
         document.getElementById('inspetor-area').addEventListener('click', (e)=>{
             const uuid = e.target.dataset.alertUuid
-    
+            const messageUuid = e.target.dataset.messageUuid
+
+            if(messageUuid != undefined){
+                const ocorrenceRef = ref(database, 'controledeturma/inspecao/' + unidade + '/' + messageUuid)
+                get(ocorrenceRef).then((snapshot)=>{
+                    const data = snapshot.val()
+                    console.log(data.comentarios)
+                })
+            }
+
             if(uuid != undefined){
                 const unidade = localStorage.getItem('user_classroom_app_local')
                 const ocorrenceRef = ref(database, 'controledeturma/inspecao/' + unidade + '/' + uuid)
@@ -1003,16 +1012,23 @@ get(inspetoresRef).then((snapshot)=>{
                     if (permission === "granted") {
                         // Configura o listener para as atualizações nos dados
                         const inspetorRef = ref(database, 'controledeturma/inspecao/' + unidade);
-        
+
                         onValue(inspetorRef, (snapshot) => {
                             const data = snapshot.val();
                             if (data) {
                                 const totalAlunos = Object.keys(data).length;
-                                document.getElementById('inspect-counter').innerText = totalAlunos
-                                // Cria uma notificação
+                                document.getElementById('inspect-counter').innerText = totalAlunos;
+
+                                // Cria uma notificação com som
                                 const notification = new Notification("Atualização de Alunos", {
                                     body: `Número total de alunos atualizado: ${totalAlunos}`,
+                                    icon: './img/iconecontrolelogo.png', // substitua pelo caminho do seu ícone
+                                    silent: false // definido como true para desabilitar o som, ou false para habilitar
                                 });
+
+                                // Adiciona um som personalizado à notificação
+                                //const audio = new Audio('caminho/do/seu/som.mp3'); // substitua pelo caminho do seu som
+                                //audio.play();
                             } else {
                                 console.log('Não há dados de inspeção de alunos.');
                             }
@@ -1065,7 +1081,7 @@ document.getElementById('inspetor-float').addEventListener('click', ()=>{
     get(inspetorRef).then((snapshot)=>{
         const data = snapshot.val()
         Object.values(data).forEach((data)=>{
-            document.getElementById('ocorrencias-area').innerHTML += '<div class="ocorrence" id="ocorrence-' + data.uuid + '"> <ul><li><div data-alert-uuid="' + data.uuid + '" class="alert-icon"></div></li> <li> <p class="nome-aluno"><strong>' + data.aluno + '</strong></p> <p class="turma">' + data.turma + '</p> </li> <li class="ocorrencia">' + data.ocorrencia[0] + '<p class"time">' + data.hora + '</p></li> <li> <p class="professor"><strong>' + data.professor + '</strong></p> <p class="funcao">' + data.funcao + '</p> </li><li><div class="message-icon"></div></li> </ul> </div>'
+            document.getElementById('ocorrencias-area').innerHTML += '<div class="ocorrence" id="ocorrence-' + data.uuid + '"> <ul><li><div data-alert-uuid="' + data.uuid + '" class="alert-icon"></div></li> <li> <p class="nome-aluno"><strong>' + data.aluno + '</strong></p> <p class="turma">' + data.turma + '</p> </li> <li class="ocorrencia">' + data.ocorrencia[0] + '<p class"time">' + data.hora + '</p></li> <li> <p class="professor"><strong>' + data.professor + '</strong></p> <p class="funcao">' + data.funcao + '</p> </li><li><div class="message-icon" data-message-uuid="' + data.uuid + '"></div></li> </ul> </div>'
         })
         
     })
