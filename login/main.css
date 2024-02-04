@@ -4,8 +4,24 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-section{
-    transform: translateY(100%);
+@keyframes swapRight {
+    0%{
+        transform: translateX(100%);
+    }
+
+    100%{
+        transform: translateX(0%);
+    }
+}
+
+
+body{
+    height: 100vh;
+    background-image: url(./../app/img/background001.png);
+    background-position-y: center;
+    background-position-x: left;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .logo{
@@ -54,6 +70,11 @@ section{
     }
 }
 
+section{
+    overflow: hidden;
+    transform: translateY(150px);
+}
+
 .deny-acess{
     position: absolute;
     background-color: #ff1919;
@@ -100,17 +121,24 @@ section{
 }
 
 .voucher-acess{
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
+    background-image: url(./../app/img/background001.png);
+    background-position-y: center;
+    background-position-x: left;
+    background-repeat: no-repeat;
+    background-size: cover;
     background-color: #fff;
     top: 0;
     z-index: 1;
+    animation: swapRight .2s ease-in;
+    overflow: none;
     display: none;
 }
 
 .voucher-acess .form-voucher{
-    transform: translateY(50%);
+    transform: translateY(40%);
 }
 
 .voucher-acess .logo-voucher{
@@ -149,9 +177,10 @@ section{
 .voucher-acess .return-voucher{
     width: 40px;
     height: 40px;
-    background-color: #000;
+    background-color: #ffffff00;
+    border: #5d3d32 solid 2px;
     border-radius: 100%;
-    margin-top: .5rem;
+    margin-top: 2rem;
     color: #fff;
     font-weight: bolder;
     background-image: url(./../app/img/return.png);
@@ -262,13 +291,15 @@ section{
     }
     
     .voucher-acess{
-        position: absolute;
+        position: fixed;
         width: 100%;
         height: 100%;
         background-color: #fff;
         top: 0;
         z-index: 1;
+        animation: swapRight .2s ease-in;
         display: none;
+        overflow: hidden;
     }
     
     .voucher-acess .form-voucher{
@@ -311,9 +342,7 @@ section{
     .voucher-acess .return-voucher{
         width: 40px;
         height: 40px;
-        background-color: #000;
         border-radius: 100%;
-        margin-top: .5rem;
         color: #fff;
         font-weight: bolder;
         background-image: url(./../app/img/return.png);

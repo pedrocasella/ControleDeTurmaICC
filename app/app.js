@@ -645,19 +645,15 @@ document.getElementById('black-background').addEventListener('click', (e)=>{
             let link
         
             if (location == 'Unidade I - Mananciais'){
-                link = 'https://api.sheetmonkey.io/form/7wCpvLqjCvYEiZpGXDqW57'
+                link = 'https://api.sheetmonkey.io/form/rpYvM1ht4YEYVB26CqWiJr'
             }
         
             if(location == 'Unidade II - Tindiba'){
                 link = 'https://api.sheetmonkey.io/form/uK2yeZCRYLEHtB3MvXkHyw'
             }
         
-            if(location == 'Unidade IV - Recreio' && classes == '1º AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '1º CN / EPCAR - 2024' ||location == 'Unidade IV - Recreio' && classes == '2ª CN / EPCAR - 2024' ||location == 'Unidade IV - Recreio' && classes == '2º AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '3º AM - 2024'){
-                link = 'https://api.sheetmonkey.io/form/h7bc25Ag6vuJi2XgiFXdM3'
-            }
-            
-            if(location == 'Unidade IV - Recreio' && classes == '1º AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '6AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '7AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '8AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '9AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '9º CN / EPCAR - 2024'){
-                link = 'https://api.sheetmonkey.io/form/ePkVRdcQF4VUEJEHSnBQPo'
+            if(location == 'Unidade IV - Recreio'){
+                link = 'https://api.sheetmonkey.io/form/rYuEc33Y75HUhCsYokMoh2'
             }
         
             // Adicione o campo oculto para indicar a folha desejada
@@ -874,19 +870,15 @@ get(inspetoresRef).then((snapshot)=>{
             let link
                 
             if (location == 'Unidade I - Mananciais'){
-                link = 'https://api.sheetmonkey.io/form/7wCpvLqjCvYEiZpGXDqW57'
+                link = 'https://api.sheetmonkey.io/form/rpYvM1ht4YEYVB26CqWiJr'
             }
     
             if(location == 'Unidade II - Tindiba'){
                 link = 'https://api.sheetmonkey.io/form/uK2yeZCRYLEHtB3MvXkHyw'
             }
     
-            if(location == 'Unidade IV - Recreio' && classes == '1º AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '1º CN / EPCAR - 2024' ||location == 'Unidade IV - Recreio' && classes == '2ª CN / EPCAR - 2024' ||location == 'Unidade IV - Recreio' && classes == '2º AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '3º AM - 2024'){
-                link = 'https://api.sheetmonkey.io/form/h7bc25Ag6vuJi2XgiFXdM3'
-            }
-            
-            if(location == 'Unidade IV - Recreio' && classes == '1º AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '6AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '7AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '8AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '9AM - 2024' ||location == 'Unidade IV - Recreio' && classes == '9º CN / EPCAR - 2024'){
-                link = 'https://api.sheetmonkey.io/form/ePkVRdcQF4VUEJEHSnBQPo'
+            if(location == 'Unidade IV - Recreio'){
+                link = 'https://api.sheetmonkey.io/form/rYuEc33Y75HUhCsYokMoh2'
             }
     
     
@@ -956,10 +948,18 @@ get(inspetoresRef).then((snapshot)=>{
             const messageUuid = e.target.dataset.messageUuid
 
             if(messageUuid != undefined){
+                document.getElementById('comment-area-black').style.display = 'block'
                 const ocorrenceRef = ref(database, 'controledeturma/inspecao/' + unidade + '/' + messageUuid)
                 get(ocorrenceRef).then((snapshot)=>{
                     const data = snapshot.val()
                     console.log(data.comentarios)
+                    document.querySelector('.nome-comment').innerText = data.aluno
+                    document.querySelector('.turma-comment').innerText = data.turma
+                    document.querySelector('.ocorrencia-comment').innerText = data.ocorrencia[0]
+                    document.querySelector('.professor-comment').innerText = data.professor
+                    document.querySelector('.disciplina-comment').innerText = data.funcao
+                    document.getElementById('comentarios-comment').value = data.comentarios
+                    document.getElementById('send-ocorrence-btn').dataset.alertUuid = data.uuid
                 })
             }
 
@@ -980,16 +980,26 @@ get(inspetoresRef).then((snapshot)=>{
                     const atividade = data.atividade
                     const uniforme = data.uniforme
                     const presenca = data.presenca
-                    const comentarios = data.comentarios
+                    const comentarios = document.getElementById('comentarios-comment').value
                     
                     respInspetor(professor, aluno, disciplina, turma, indisciplina, material, celular, atividade, uniforme, presenca, comentarios).then(()=>{
-                        remove(ocorrenceRef)
-                        document.getElementById('ocorrence-' + uuid).remove()
+                        remove(ocorrenceRef).then(()=>{
+                            document.getElementById('comentarios-comment').value = ''
+                            document.getElementById('comment-area-black').style.display = 'none'
+                            document.getElementById('ocorrence-' + uuid).remove()
+                        })
+                        
                     })
                     
     
                 })
     
+            }
+        })
+
+        document.getElementById('comment-area-black').addEventListener('click', (e)=>{
+            if(e.target.id == 'close-comment' || e.target.id == 'comment-area-black'){
+                document.getElementById('comment-area-black').style.display = 'none'
             }
         })
     
@@ -999,6 +1009,10 @@ get(inspetoresRef).then((snapshot)=>{
                 if (data) {
                     const totalAlunos = Object.keys(data).length;
                     document.getElementById('inspect-counter').innerText = totalAlunos
+                    document.getElementById('ocorrencias-area').innerHTML = ''
+                    Object.values(data).forEach((data)=>{
+                        document.getElementById('ocorrencias-area').innerHTML += '<div class="ocorrence" id="ocorrence-' + data.uuid + '"> <ul><li><div class="alert-icon"></div></li> <li> <p class="nome-aluno"><strong>' + data.aluno + '</strong></p> <p class="turma">' + data.turma + '</p> </li> <li class="ocorrencia">' + data.ocorrencia[0] + '<p class"time">' + data.hora + '</p></li><li data-message-uuid="' + data.uuid + '"><div class="message-icon" data-message-uuid="' + data.uuid + '"></div></li> </ul> </div>'
+                    })
                 } else {
                     const totalAlunos = 0
                     document.getElementById('inspect-counter').innerText = totalAlunos
@@ -1013,22 +1027,31 @@ get(inspetoresRef).then((snapshot)=>{
                         // Configura o listener para as atualizações nos dados
                         const inspetorRef = ref(database, 'controledeturma/inspecao/' + unidade);
 
+                        // Cria uma notificação com som
+                        const createNotification = (totalAlunos) => {
+                            const notification = new Notification("Controle e Gestão de Sala de Aula", {
+                                body: `Casos Urgentes em Sala: ${totalAlunos}`,
+                                icon: './img/iconecontrolelogo.png', // substitua pelo caminho do seu ícone
+                                silent: false // definido como true para desabilitar o som, ou false para habilitar
+                            });
+
+                            // Adiciona um som personalizado à notificação
+                            const audio = new Audio('./sounds/001.wav'); // substitua pelo caminho do seu som
+
+                            // Aguarde até que a notificação seja exibida e, em seguida, reproduza o som
+                            notification.onshow = () => {
+                                audio.play();
+                            };
+                        };
+
                         onValue(inspetorRef, (snapshot) => {
                             const data = snapshot.val();
                             if (data) {
                                 const totalAlunos = Object.keys(data).length;
                                 document.getElementById('inspect-counter').innerText = totalAlunos;
 
-                                // Cria uma notificação com som
-                                const notification = new Notification("Atualização de Alunos", {
-                                    body: `Número total de alunos atualizado: ${totalAlunos}`,
-                                    icon: './img/iconecontrolelogo.png', // substitua pelo caminho do seu ícone
-                                    silent: false // definido como true para desabilitar o som, ou false para habilitar
-                                });
-
-                                // Adiciona um som personalizado à notificação
-                                //const audio = new Audio('caminho/do/seu/som.mp3'); // substitua pelo caminho do seu som
-                                //audio.play();
+                                // Cria uma notificação quando há dados de inspeção
+                                createNotification(totalAlunos);
                             } else {
                                 console.log('Não há dados de inspeção de alunos.');
                             }
@@ -1081,7 +1104,7 @@ document.getElementById('inspetor-float').addEventListener('click', ()=>{
     get(inspetorRef).then((snapshot)=>{
         const data = snapshot.val()
         Object.values(data).forEach((data)=>{
-            document.getElementById('ocorrencias-area').innerHTML += '<div class="ocorrence" id="ocorrence-' + data.uuid + '"> <ul><li><div data-alert-uuid="' + data.uuid + '" class="alert-icon"></div></li> <li> <p class="nome-aluno"><strong>' + data.aluno + '</strong></p> <p class="turma">' + data.turma + '</p> </li> <li class="ocorrencia">' + data.ocorrencia[0] + '<p class"time">' + data.hora + '</p></li> <li> <p class="professor"><strong>' + data.professor + '</strong></p> <p class="funcao">' + data.funcao + '</p> </li><li><div class="message-icon" data-message-uuid="' + data.uuid + '"></div></li> </ul> </div>'
+            document.getElementById('ocorrencias-area').innerHTML += '<div class="ocorrence" id="ocorrence-' + data.uuid + '"> <ul><li><div class="alert-icon"></div></li> <li> <p class="nome-aluno"><strong>' + data.aluno + '</strong></p> <p class="turma">' + data.turma + '</p> </li> <li class="ocorrencia">' + data.ocorrencia[0] + '<p class"time">' + data.hora + '</p></li><li data-message-uuid="' + data.uuid + '"><div class="message-icon" data-message-uuid="' + data.uuid + '"></div></li> </ul> </div>'
         })
         
     })
